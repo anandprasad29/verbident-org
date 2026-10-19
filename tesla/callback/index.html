@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Tesla sign-in result</title>
+<style>body{font-family:system-ui,sans-serif;margin:2rem;max-width:44rem}code{display:block;background:#f2f2f2;padding:1rem;border-radius:8px;word-break:break-all;font-size:1.05rem}</style>
+</head>
+<body>
+<h1>Tesla sign-in result</h1>
+<p id="label">Your authorization code:</p>
+<code id="out">Reading…</code>
+<p>Copy the full code above and send it to Alfred to finish connecting the car. The code is only valid for a short time.</p>
+<script>
+const p = new URLSearchParams(location.search);
+const code = p.get('code'), err = p.get('error');
+const out = document.getElementById('out'), label = document.getElementById('label');
+if (err) { label.textContent = 'Tesla returned an error:'; out.textContent = err + ' — ' + (p.get('error_description') || ''); }
+else if (code) { out.textContent = code; }
+else { out.textContent = 'No code in this address. Start the sign-in from the Tesla link Alfred provided.'; }
+</script>
+</body>
+</html>
